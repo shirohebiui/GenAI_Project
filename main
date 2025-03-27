@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>이미지 슬라이더</title>
+    <style>
+        .slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 600px;
+            height: 400px;
+            margin: auto;
+            overflow: hidden;
+        }
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .slide img {
+            width: 100%;
+            height: auto;
+        }
+        .button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 100;
+        }
+        .prev {
+            left: 10px;
+        }
+        .next {
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <button class="button prev" onclick="moveSlide(-1)">&#10094;</button>
+        <div class="slider">
+            <div class="slide"><img src="a1.jpg" alt="이미지 1"></div>
+            <div class="slide"><img src="a2.jpg" alt="이미지 2"></div>
+            <div class="slide"><img src="a3.jpg" alt="이미지 3"></div>
+        </div>
+        <button class="button next" onclick="moveSlide(1)">&#10095;</button>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+
+        function moveSlide(direction) {
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+            currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
+            const offset = -currentIndex * 100;
+            document.querySelector('.slider').style.transform = `translateX(${offset}%)`;
+        }
+    </script>
+</body>
+</html>

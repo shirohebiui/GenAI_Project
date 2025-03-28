@@ -4,6 +4,24 @@
     <meta charset="UTF-8">
     <title>이미지 슬라이더</title>
     <style>
+        /* 상단 네비게이션 스타일 */
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            padding: 10px;
+            color: white;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
         .slider-container {
             display: flex;
             align-items: center;
@@ -11,37 +29,52 @@
             position: relative;
             width: 600px;
             height: 400px;
-            margin: auto;
+            margin: 20px auto; /* 슬라이더 위아래에 여백을 추가 */
             overflow: hidden;
         }
+
         .slider {
             display: flex;
             transition: transform 0.5s ease-in-out;
         }
+
         .slide {
             min-width: 100%;
             box-sizing: border-box;
         }
+
         .slide img {
             width: 100%;
             height: auto;
         }
+
+        /* 버튼 스타일 (슬라이더 외부에 위치) */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            width: 600px;
+            margin: 10px auto;
+        }
+
         .button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
             border: none;
             padding: 10px;
             cursor: pointer;
+            font-size: 20px;
             z-index: 100;
         }
-        .prev {
+
+        /* 화면 크기에 따른 스타일 */
+        .device-label {
+            position: absolute;
+            top: 10px;
             left: 10px;
-        }
-        .next {
-            right: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            z-index: 100;
+            color: white;
         }
 
         /* PC 화면에서의 스타일 */
@@ -49,10 +82,6 @@
             .slider-container {
                 width: 600px;
                 height: 400px;
-            }
-
-            .button {
-                padding: 15px;
             }
         }
 
@@ -63,29 +92,40 @@
                 height: 250px;
             }
 
+            .button-container {
+                width: 100%;
+            }
+
             .button {
-                padding: 8px;
-                font-size: 20px;
-            }
-
-            .prev {
-                left: 5px;
-            }
-
-            .next {
-                right: 5px;
+                font-size: 18px;
             }
         }
     </style>
 </head>
 <body>
+
+    <!-- 네비게이션 메뉴 -->
+    <div class="navbar">
+        <a href="#">메뉴1</a>
+        <a href="#">메뉴2</a>
+        <a href="#">메뉴3</a>
+    </div>
+
+    <!-- 화면 크기 표시 -->
+    <div class="device-label" id="deviceLabel">PC</div>
+
+    <!-- 슬라이더 -->
     <div class="slider-container">
-        <button class="button prev" onclick="moveSlide(-1)">&#10094;</button>
         <div class="slider">
             <div class="slide"><img src="a1.png" alt="이미지 1"></div>
             <div class="slide"><img src="a2.png" alt="이미지 2"></div>
             <div class="slide"><img src="a3.png" alt="이미지 3"></div>
         </div>
+    </div>
+
+    <!-- 좌우 버튼 -->
+    <div class="button-container">
+        <button class="button prev" onclick="moveSlide(-1)">&#10094;</button>
         <button class="button next" onclick="moveSlide(1)">&#10095;</button>
     </div>
 
@@ -99,6 +139,7 @@
             const offset = -currentIndex * 100;
             document.querySelector('.slider').style.transform = `translateX(${offset}%)`;
         }
+
         // 화면 크기 변경 시 "PC" 또는 "모바일" 텍스트 변경
         function updateDeviceLabel() {
             const deviceLabel = document.getElementById('deviceLabel');
@@ -113,5 +154,7 @@
         window.addEventListener('resize', updateDeviceLabel);
         window.addEventListener('load', updateDeviceLabel);
     </script>
+
 </body>
 </html>
+

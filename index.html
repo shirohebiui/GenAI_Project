@@ -99,6 +99,19 @@
             const offset = -currentIndex * 100;
             document.querySelector('.slider').style.transform = `translateX(${offset}%)`;
         }
+        // 화면 크기 변경 시 "PC" 또는 "모바일" 텍스트 변경
+        function updateDeviceLabel() {
+            const deviceLabel = document.getElementById('deviceLabel');
+            if (window.innerWidth >= 768) {
+                deviceLabel.textContent = 'PC';
+            } else {
+                deviceLabel.textContent = '모바일';
+            }
+        }
+
+        // 페이지 로드 시 및 화면 크기 변경 시 호출
+        window.addEventListener('resize', updateDeviceLabel);
+        window.addEventListener('load', updateDeviceLabel);
     </script>
 </body>
 </html>
